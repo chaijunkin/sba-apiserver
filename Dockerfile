@@ -1,6 +1,7 @@
+
 # docker build -f Dockerfile -t smartbank-api-module .
-# docker tag smartbank-api-module jkplayground/smartbank-api-module:v1.0.0
-# docker push jkplayground/smartbank-api-module:v1.0.0
+# docker tag smartbank-api-module jkplayground/smartbank-api-module:observability-v1.0.0
+# docker push jkplayground/smartbank-api-module:observability-v1.0.0
 # DOCKER LOCAL DB AND API
 # docker run --name smartbankdb --env POSTGRES_USER=postgres --env POSTGRES_PASSWORD=admin --env POSTGRES_DB=postgres -p 5432:5432 postgres
 # docker run --link smartbankdb:dbserver -p 80:8080 --env spring.datasource.url=jdbc:postgresql://dbserver:5432/postgres -d jkplayground/smartbank-api-module:v1.0.0
