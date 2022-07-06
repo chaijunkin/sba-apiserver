@@ -14,7 +14,10 @@ import com.axess.smartbankapi.model.RewardsCatalogue;
 import com.axess.smartbankapi.repository.RewardsCatalogueRepository;
 import com.axess.smartbankapi.service.RewardCatalogueService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class RewardCatalogueServiceImpl implements RewardCatalogueService {
 
 	@Autowired
@@ -45,6 +48,7 @@ public class RewardCatalogueServiceImpl implements RewardCatalogueService {
 		return "Saved items - "+items.size();
 		}catch(DataAccessException e) {
 			message = "Failed to save items - "+0;
+			log.warn(message);
 			throw new RecordNotCreatedException(message,e);
 		}
 	}

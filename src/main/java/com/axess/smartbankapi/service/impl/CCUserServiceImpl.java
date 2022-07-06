@@ -17,7 +17,10 @@ import com.axess.smartbankapi.model.CCUser;
 import com.axess.smartbankapi.repository.CCUserRepository;
 import com.axess.smartbankapi.service.CCUserService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class CCUserServiceImpl implements CCUserService {
 
 	@Autowired
@@ -70,6 +73,7 @@ public class CCUserServiceImpl implements CCUserService {
 			Optional<CCUser> ccUser = this.ccUserRepo.findByUserIdAndPassword(userId, password);
 			return ccUser.get();
 		} catch (NoSuchElementException e) {
+			log.warn("Invalid Credentials. User id is used to make login attempt: "+userId);
 			throw new RecordNotFoundException("Invalid Credentials. Please check again.");
 		}
 	}

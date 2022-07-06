@@ -17,8 +17,12 @@ import com.axess.smartbankapi.repository.CCUserRepository;
 import com.axess.smartbankapi.repository.RedeemptionHistoryRepository;
 import com.axess.smartbankapi.repository.RewardsCatalogueRepository;
 import com.axess.smartbankapi.service.RedeemptionHistoryService;
+import com.axess.smartbankapi.ses.EmailService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class RedeemptionHistoryServiceImpl implements RedeemptionHistoryService {
 
 	@Autowired
@@ -30,13 +34,18 @@ public class RedeemptionHistoryServiceImpl implements RedeemptionHistoryService 
 	@Autowired
 	private RewardsCatalogueRepository rewardsCatalogueRepo;
 	
+	@Autowired
+	EmailService emailService;
+	
 	@Override
 	public String saveHistory(UserRedeemptionHistoryDto historyDto) throws RecordExistException, RecordNotCreatedException {
 		String message ="Item saved in history";
+		log.info(message);
 		CCUser user = ccUserRepo.findById(historyDto.getCcNumber()).get();
 		user.setAvailableRedeemPoints(user.getAvailableRedeemPoints() - historyDto.getTotalPointsRedeemed());
 		user.setTotalRewardsGained(historyDto.getTotalAmountGained());
 		ccUserRepo.save(user);
+		emailService.sendCheckoutEmail(user);
 
 		historyDto.getItemsRedeemed().forEach(item ->{
 			
@@ -46,7 +55,6 @@ public class RedeemptionHistoryServiceImpl implements RedeemptionHistoryService 
 			historyData.setOrderdate(LocalDate.now());
 			historyData.setQuantity(historyDto.getQuantity());
 			historyData.setCcUser(user);
-			System.out.println("print historydataid" + historyData.getCatalogue().getId());
 			historyRepo.save(historyData);
 			
 			
