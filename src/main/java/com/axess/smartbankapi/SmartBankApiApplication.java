@@ -16,6 +16,7 @@ import com.axess.smartbankapi.service.CCUserService;
 import com.axess.smartbankapi.service.RewardCatalogueService;
 
 @SpringBootApplication
+@EnableScheduling
 public class SmartBankApiApplication implements CommandLineRunner {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(SmartBankApiApplication.class);
