@@ -21,9 +21,12 @@ import com.axess.smartbankapi.service.CCUserService;
 import com.axess.smartbankapi.sqs.AppUsageRecord;
 import com.axess.smartbankapi.sqs.SQSService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/ccuser")
 @CrossOrigin
+@Slf4j
 public class CCUserController {
 	
 	@Autowired

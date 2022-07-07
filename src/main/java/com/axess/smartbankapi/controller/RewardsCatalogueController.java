@@ -29,10 +29,13 @@ public class RewardsCatalogueController {
 	
 	@Autowired
 	private RewardCatalogueService rcService;
+	@Autowired
+	private SQSService sqsService;
 	
 	@GetMapping("/")
 	public ResponseEntity<?> getAll() throws RecordNotFoundException {
 		
+		log.info("Request for catalogue received");
 		ApiSuccessResponse response = new ApiSuccessResponse();
 
 		List<RewardsCatalogue> rc = this.rcService.getAll();
