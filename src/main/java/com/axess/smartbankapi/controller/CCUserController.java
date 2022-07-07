@@ -28,6 +28,8 @@ public class CCUserController {
 	
 	@Autowired
 	private CCUserService ccUserService;
+	@Autowired
+	private SQSService sqsService;
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> verifyLogin(@RequestBody LoginDto loginDto) throws RecordNotFoundException {
